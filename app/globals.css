@@ -1,6 +1,54 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: false;
+  logs: false;
+}
+
+@plugin "daisyui/theme" {
+  name: "diagnosis";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+  --color-base-100: #fff7e3;
+  --color-base-200: #f7ebd4;
+  --color-base-300: #ead8b8;
+  --color-base-content: #1d2b36;
+  --color-primary: #c1121f;
+  --color-primary-content: #fff5f6;
+  --color-secondary: #003049;
+  --color-secondary-content: #eef6fb;
+  --color-accent: #669bbc;
+  --color-accent-content: #112634;
+  --color-neutral: #102a43;
+  --color-neutral-content: #f3f8fc;
+  --color-info: #3a86ff;
+  --color-info-content: #eef5ff;
+  --color-success: #2a9d8f;
+  --color-success-content: #f2fcfa;
+  --color-warning: #f4a261;
+  --color-warning-content: #3d230a;
+  --color-error: #d90429;
+  --color-error-content: #fff4f6;
+  --radius-box: 1rem;
+  --radius-field: 0.75rem;
+  --radius-selector: 0.5rem;
+  --border: 1px;
+}
+
+@theme {
+  --shadow-certificate: 0 22px 80px rgba(10, 36, 47, 0.22);
+}
+
+@utility bg-paper-grain {
+  background-image:
+    radial-gradient(circle at 18% 10%, rgba(255, 255, 255, 0.48) 0 16%, transparent 42%),
+    radial-gradient(circle at 85% 0%, rgba(255, 255, 255, 0.3) 0 21%, transparent 49%),
+    linear-gradient(120deg, #f5ecd8 0%, #fbf7ef 36%, #e9dcc5 100%);
+}
+
+@utility shadow-certificate {
+  box-shadow: 0 22px 80px rgba(10, 36, 47, 0.22);
+}
 
 :root {
   color-scheme: light;
