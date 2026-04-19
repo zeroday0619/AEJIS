@@ -1,0 +1,66 @@
+# Medical Certificate Issuance System for Acute Episode of Compulsive Desire-to-Travel-to-Japan Syndrome
+
+This is a parody medical-certificate web app built with Next.js + Svelte + daisyUI + Cloudflare Pages.
+
+## Features
+
+- Fill out patient details and notes in an input form
+- Live Svelte-based certificate preview
+- Print-ready A4 certificate output from the browser
+- Build scripts included for Cloudflare Pages deployment
+
+## Tech Stack
+
+- Next.js (App Router)
+- Tailwind CSS + daisyUI
+- Svelte (custom element, Vite library build)
+- Cloudflare Pages (`@cloudflare/next-on-pages`)
+
+## Local Development
+
+```bash
+npm install
+npm run dev
+```
+
+Before `dev`, run `build:svelte` to generate the Svelte preview bundle in `public/svelte`.
+
+## Production Build
+
+```bash
+npm run build
+npm run start
+```
+
+## Cloudflare Pages
+
+1. Build command
+
+```bash
+npm run pages:build
+```
+
+2. Build output directory
+
+```txt
+.vercel/output/static
+```
+
+3. Test Pages output locally
+
+```bash
+npm run pages:preview
+```
+
+## Disclaimer
+
+This project is a parody sample for humor and fun. It must not be used as a real diagnosis or medical document.
+
+## License
+
+[Menhera Open Source License](LICENSE)
+
+
+## AI-Generated Code Notice
+
+Parts of this project were created with assistance from AI tools (e.g. large language models). All AI-assisted contributions were reviewed and adapted by maintainers before inclusion. If you need provenance for specific changes, please refer to the Git history and commit messages.
