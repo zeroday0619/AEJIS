@@ -139,7 +139,7 @@ export default function CertificateBuilder() {
         <p>
           위 사이트는 오픈소스로 공개되어 있습니다. 구현이 궁금하거나 직접 수정해서 써보고 싶다면{" "}
           <a
-            href="https://github.com/zeroday0619/adcdtjs"
+            href="https://github.com/zeroday0619/AEJIS"
             target="_blank"
             rel="noreferrer"
             className="font-semibold text-secondary underline underline-offset-4 transition-opacity hover:opacity-80"
