@@ -159,7 +159,16 @@ export default function CertificateBuilder() {
           >
             GitHub Sponsors
           </a>
-          를 통해 응원해 주세요.
+          또는{" "}
+          <a
+            href="https://patreon.com/zeroday0619"
+            target="_blank"
+            rel="noreferrer"
+            className="font-semibold text-secondary underline underline-offset-4 transition-opacity hover:opacity-80"
+          >
+            Patreon
+          </a>
+          을 통해 응원해 주세요.
         </p>
       </footer>
     </div>
