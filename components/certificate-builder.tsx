@@ -109,9 +109,9 @@ export default function CertificateBuilder() {
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-6 px-4 py-6 print-frame md:px-8 md:py-8">
       <header className="no-print rounded-box border border-base-300/70 bg-base-100/75 px-6 py-5 shadow-lg">
-        <p className="text-4xl tracking-wider text-secondary">ADCDTJS Rapid Response Team, Tenkai General Hospital</p>
+        <p className="text-4xl tracking-wider text-secondary">AEJIS Rapid Response Team, Tenkai General Hospital</p>
         <h1 className="mt-2 text-balance text-2xl font-semibold leading-tight text-neutral md:text-3xl">
-          Acute Compulsive Desire-to-Travel-to-Japan Syndrome Certificate Issuer
+          Acute Episode of Japan Ikitai Syndrome Certificate Issuer
         </h1>
         <p className="mt-2 text-sm text-neutral/80">
           This is a parody page for fun. Do not use it as a real medical document.

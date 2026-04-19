@@ -1,4 +1,4 @@
-# Medical Certificate Issuance System for Acute Episode of Compulsive Desire-to-Travel-to-Japan Syndrome
+# Medical Certificate Issuance System for Acute Episode of Japan Ikitai Syndrome
 
 This is a parody medical-certificate web app built with Next.js + Svelte + daisyUI + Cloudflare Pages.
 

@@ -13,7 +13,7 @@
   export let note =
     "Immediate attempts to book flights to Japan were observed when spring fare promotions appeared.";
   export let issued = "2026-04-19";
-  export let serial = "AJTDS-550e8400-e29b-41d4-a716-446655440000";
+  export let serial = "AEJIS-550e8400-e29b-41d4-a716-446655440000";
 
   const labels: Record<string, string> = {
     mild: "MILD",
@@ -51,7 +51,7 @@
   <header class="top">
     <div>
       <p class="kicker">Medical Certificate</p>
-      <h1>Acute Episode of Compulsive Desire-to-Travel-to-Japan Syndrome</h1>
+      <h1>Acute Episode of Japan Ikitai Syndrome</h1>
     </div>
     <div class="status">
       <span>STATUS</span>
@@ -68,7 +68,7 @@
     <div class="value">{sexLabel}</div>
     <div class="label">Address</div>
     <div class="value">{address}</div>
-    <div class="label">Japan-Travel Urge Score</div>
+    <div class="label">Japan Ikitai Score</div>
     <div class="value">{scoreNumber} / 100</div>
     <div class="label">Certificate ID</div>
     <div class="value">{serial}</div>

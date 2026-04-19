@@ -4,7 +4,7 @@ export class BrowserCertificatePlatform implements CertificatePlatform {
   generateCertificateId(): string {
     const uuid = globalThis.crypto?.randomUUID?.();
     if (uuid) {
-      return `AJTDS-${uuid.toUpperCase()}`;
+      return `AEJIS-${uuid.toUpperCase()}`;
     }
 
     const randomBytes = Array.from({ length: 16 }, () => Math.floor(Math.random() * 256));
@@ -14,7 +14,7 @@ export class BrowserCertificatePlatform implements CertificatePlatform {
     const hex = randomBytes.map((value) => value.toString(16).padStart(2, "0")).join("");
     const fallbackUuid = `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20, 32)}`;
 
-    return `AJTDS-${fallbackUuid.toUpperCase()}`;
+    return `AEJIS-${fallbackUuid.toUpperCase()}`;
   }
 
   createObjectUrl(blob: Blob): string {

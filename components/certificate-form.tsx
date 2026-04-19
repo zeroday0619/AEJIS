@@ -94,7 +94,7 @@ export function CertificateForm({
       </label>
 
       <label className="form-control gap-2">
-        <span className="label-text font-medium">Japan-Travel Urge Score: {form.score}</span>
+        <span className="label-text font-medium">Japan Ikitai Score: {form.score}</span>
         <input
           type="range"
           min={0}

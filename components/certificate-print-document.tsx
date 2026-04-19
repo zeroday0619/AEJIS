@@ -312,7 +312,7 @@ function SealStamp() {
         <Circle cx="250" cy="250" r="213" fill="none" stroke={sealColor} strokeWidth="2" />
         <Circle cx="250" cy="250" r="148" fill="none" stroke={sealColor} strokeWidth="2" />
 
-        {renderTextOnArc("ADCDTJS RAPID RESPONSE TEAM", 213, -168, -12, 18)}
+        {renderTextOnArc("AEJIS RAPID RESPONSE TEAM", 213, -168, -12, 18)}
         {renderTextOnArc("TENKAI GENERAL HOSPITAL", 213, 12, 168, 18)}
 
         <SvgText
@@ -387,8 +387,8 @@ function CertificatePrintDocument({ data }: { data: CertificatePrintData }) {
               <Text style={styles.kicker}>MEDICAL CERTIFICATE</Text>
               <View style={styles.kickerRule} />
               <View style={styles.titleStack}>
-                <Text style={styles.titlePrimary}>Acute Episode of Compulsive</Text>
-                <Text style={styles.titlePrimary}>Desire-to-Travel-to-Japan Syndrome</Text>
+                <Text style={styles.titlePrimary}>Acute Episode of Japan</Text>
+                <Text style={styles.titlePrimary}>Ikitai Syndrome</Text>
               </View>
             </View>
 
@@ -403,7 +403,7 @@ function CertificatePrintDocument({ data }: { data: CertificatePrintData }) {
             <InfoRow label="Date of Birth" value={data.birth} />
             <InfoRow label="Gender Identity" value={sexText} />
             <InfoRow label="Address" value={wrappedAddress} multiline />
-            <InfoRow label="Japan-Travel Urge Score" value={scoreText} />
+            <InfoRow label="Japan Ikitai Score" value={scoreText} />
             <InfoRow label="Certificate ID" value={data.serial} isLast />
           </View>
 
