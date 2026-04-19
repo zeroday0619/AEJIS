@@ -1,11 +1,11 @@
 # Medical Certificate Issuance System for Acute Episode of Japan Ikitai Syndrome
 
-This is a parody medical-certificate web app built with Next.js + Svelte + daisyUI + Cloudflare Pages.
+This is a parody medical-certificate web app built with Next.js + React + daisyUI + Cloudflare Pages.
 
 ## Features
 
 - Fill out patient details and notes in an input form
-- Live Svelte-based certificate preview
+- Live PDF-based certificate preview
 - Print-ready A4 certificate output from the browser
 - Build scripts included for Cloudflare Pages deployment
 
@@ -13,7 +13,6 @@ This is a parody medical-certificate web app built with Next.js + Svelte + daisy
 
 - Next.js (App Router)
 - Tailwind CSS + daisyUI
-- Svelte (custom element, Vite library build)
 - Cloudflare Pages (`@cloudflare/next-on-pages`)
 
 ## Local Development
@@ -22,8 +21,6 @@ This is a parody medical-certificate web app built with Next.js + Svelte + daisy
 npm install
 npm run dev
 ```
-
-Before `dev`, run `build:svelte` to generate the Svelte preview bundle in `public/svelte`.
 
 ## Production Build
 
