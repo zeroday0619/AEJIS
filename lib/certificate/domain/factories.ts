@@ -18,6 +18,7 @@ export function buildCertificatePrintData(
     score: form.score,
     note: form.note,
     issued: formatIssuedAt(issuedAt),
+    issuedUnix: Math.floor(issuedAt / 1000),
     serial: certificateId,
   };
 }

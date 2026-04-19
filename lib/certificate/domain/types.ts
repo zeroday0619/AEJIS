@@ -34,6 +34,7 @@ export type CertificatePrintData = {
   score: number;
   note: string;
   issued: string;
+  issuedUnix: number;
   serial: string;
 };
 

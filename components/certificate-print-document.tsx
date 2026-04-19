@@ -2,8 +2,10 @@ import {
   Circle,
   Document,
   Font,
+  G,
   Line,
   Page,
+  Path,
   StyleSheet,
   Svg,
   Text,
@@ -13,7 +15,11 @@ import {
 } from "@react-pdf/renderer";
 
 import { CERTIFICATE_LEVEL_LABELS, GENDER_LABELS } from "@/lib/certificate/domain/constants";
-import { formatAddressForPdf, getRecommendation } from "@/lib/certificate/domain/formatters";
+import {
+  buildVerificationCode,
+  formatAddressForPdf,
+  getRecommendation,
+} from "@/lib/certificate/domain/formatters";
 import type { CertificatePrintData } from "@/lib/certificate/domain/types";
 
 Font.register({
@@ -43,6 +49,7 @@ const styles = StyleSheet.create({
     lineHeight: 1.45,
   },
   sheet: {
+    position: "relative",
     borderWidth: 3,
     borderColor: "#4b2713",
     paddingTop: 30,
@@ -50,6 +57,16 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
     paddingLeft: 30,
     backgroundColor: "#fff8e9",
+  },
+  watermarkWrap: {
+    position: "absolute",
+    top: 88,
+    left: 58,
+    width: 430,
+    height: 430,
+  },
+  sheetContent: {
+    position: "relative",
   },
   topRow: {
     flexDirection: "row",
@@ -268,10 +285,17 @@ function renderTextOnArc(
   startAngle: number,
   endAngle: number,
   fontSize: number,
+  options?: {
+    centerX?: number;
+    centerY?: number;
+    color?: string;
+    fontWeight?: "bold" | "normal";
+  },
 ) {
   const characters = Array.from(text);
-  const centerX = 250;
-  const centerY = 250;
+  const centerX = options?.centerX ?? 250;
+  const centerY = options?.centerY ?? 250;
+  const color = options?.color ?? "#c0001a";
   const total = characters.length;
 
   return characters.map((character, index) => {
@@ -288,11 +312,11 @@ function renderTextOnArc(
         x={x}
         y={y}
         textAnchor="middle"
-        fill="#c0001a"
+        fill={color}
         transform={`rotate(${rotation}, ${x}, ${y})`}
         style={{
           fontFamily: "NanumGothic",
-          fontWeight: "bold",
+          fontWeight: options?.fontWeight ?? "bold",
           fontSize,
         }}
       >
@@ -300,6 +324,113 @@ function renderTextOnArc(
       </SvgText>
     );
   });
+}
+
+function chunkVerificationCode(verificationCode: string): [string, string] {
+  return [verificationCode.slice(0, 16), verificationCode.slice(16, 32)];
+}
+
+function WatermarkLogo({ verificationCode }: { verificationCode: string }) {
+  const watermarkColor = "#1a5fa8";
+  const [verificationLine1, verificationLine2] = chunkVerificationCode(verificationCode);
+
+  return (
+    <View style={styles.watermarkWrap}>
+      <Svg viewBox="0 0 680 680" width="100%" height="100%">
+        <G opacity={0.12}>
+          <Circle cx="340" cy="340" r="265" fill="none" stroke={watermarkColor} strokeWidth="3" />
+          <Circle cx="340" cy="340" r="248" fill="none" stroke={watermarkColor} strokeWidth="0.8" />
+          <Circle
+            cx="340"
+            cy="340"
+            r="150"
+            fill="none"
+            stroke={watermarkColor}
+            strokeWidth="1.2"
+            strokeDasharray="6 4"
+          />
+
+          {renderTextOnArc("AEJIS RAPID RESPONSE TEAM", 220, -164, -16, 21, {
+            centerX: 340,
+            centerY: 340,
+            color: watermarkColor,
+          })}
+          {renderTextOnArc("TENKAI GENERAL HOSPITAL", 220, 16, 164, 19, {
+            centerX: 340,
+            centerY: 340,
+            color: watermarkColor,
+            fontWeight: "normal",
+          })}
+
+          <Circle cx="340" cy="101" r="4" fill={watermarkColor} />
+          <Circle cx="340" cy="579" r="4" fill={watermarkColor} />
+          <Circle cx="204" cy="170" r="3" fill={watermarkColor} />
+          <Circle cx="476" cy="170" r="3" fill={watermarkColor} />
+          <Circle cx="185" cy="462" r="3" fill={watermarkColor} />
+          <Circle cx="495" cy="462" r="3" fill={watermarkColor} />
+
+          <Line x1="340" y1="108" x2="340" y2="128" stroke={watermarkColor} strokeWidth="1.5" />
+          <Line x1="340" y1="552" x2="340" y2="572" stroke={watermarkColor} strokeWidth="1.5" />
+
+          <SvgText
+            x="340"
+            y="222"
+            textAnchor="middle"
+            fill={watermarkColor}
+            style={{ fontFamily: "Courier", fontSize: 11, opacity: 0.6, letterSpacing: 2 }}
+          >
+            VERIFICATION CODE
+          </SvgText>
+          <Line x1="260" y1="230" x2="420" y2="230" stroke={watermarkColor} strokeWidth="0.8" />
+
+          <SvgText
+            x="340"
+            y="336"
+            textAnchor="middle"
+            fill={watermarkColor}
+            style={{ fontFamily: "Courier", fontSize: 18, fontWeight: "bold", letterSpacing: 2.3 }}
+          >
+            {verificationLine1}
+          </SvgText>
+          <SvgText
+            x="340"
+            y="364"
+            textAnchor="middle"
+            fill={watermarkColor}
+            style={{ fontFamily: "Courier", fontSize: 18, fontWeight: "bold", letterSpacing: 2.3 }}
+          >
+            {verificationLine2}
+          </SvgText>
+
+          <Line x1="255" y1="378" x2="425" y2="378" stroke={watermarkColor} strokeWidth="0.8" />
+          <SvgText
+            x="340"
+            y="396"
+            textAnchor="middle"
+            fill={watermarkColor}
+            style={{ fontFamily: "Courier", fontSize: 10, opacity: 0.6, letterSpacing: 1.5 }}
+          >
+            TENKAI · AEJIS
+          </SvgText>
+
+          <Path
+            d="M 110 340 L 185 340"
+            stroke={watermarkColor}
+            strokeWidth="1"
+            strokeDasharray="3 3"
+            fill="none"
+          />
+          <Path
+            d="M 495 340 L 570 340"
+            stroke={watermarkColor}
+            strokeWidth="1"
+            strokeDasharray="3 3"
+            fill="none"
+          />
+        </G>
+      </Svg>
+    </View>
+  );
 }
 
 function SealStamp() {
@@ -377,51 +508,56 @@ function CertificatePrintDocument({ data }: { data: CertificatePrintData }) {
   const sexText = GENDER_LABELS[data.sex] ?? "Prefer not to say";
   const recommendation = getRecommendation(data.score);
   const wrappedAddress = formatAddressForPdf(data.address);
+  const verificationCode = buildVerificationCode(data.issuedUnix, data.serial);
 
   return (
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={styles.sheet}>
-          <View style={styles.topRow}>
-            <View style={styles.titleBlock}>
-              <Text style={styles.kicker}>MEDICAL CERTIFICATE</Text>
-              <View style={styles.kickerRule} />
-              <View style={styles.titleStack}>
-                <Text style={styles.titlePrimary}>Acute Episode of Japan</Text>
-                <Text style={styles.titlePrimary}>Ikitai Syndrome</Text>
+          <WatermarkLogo verificationCode={verificationCode} />
+
+          <View style={styles.sheetContent}>
+            <View style={styles.topRow}>
+              <View style={styles.titleBlock}>
+                <Text style={styles.kicker}>MEDICAL CERTIFICATE</Text>
+                <View style={styles.kickerRule} />
+                <View style={styles.titleStack}>
+                  <Text style={styles.titlePrimary}>Acute Episode of Japan</Text>
+                  <Text style={styles.titlePrimary}>Ikitai Syndrome</Text>
+                </View>
+              </View>
+
+              <View style={styles.statusWrap}>
+                <Text style={styles.statusLabel}>STATUS</Text>
+                <Text style={styles.statusValue}>{levelText}</Text>
               </View>
             </View>
 
-            <View style={styles.statusWrap}>
-              <Text style={styles.statusLabel}>STATUS</Text>
-              <Text style={styles.statusValue}>{levelText}</Text>
-            </View>
-          </View>
-
-          <View style={styles.table}>
-            <InfoRow label="Patient Name" value={data.patient} />
-            <InfoRow label="Date of Birth" value={data.birth} />
-            <InfoRow label="Gender Identity" value={sexText} />
-            <InfoRow label="Address" value={wrappedAddress} multiline />
-            <InfoRow label="Japan Ikitai Score" value={scoreText} />
-            <InfoRow label="Certificate ID" value={data.serial} isLast />
-          </View>
-
-          <View style={styles.diagnosis}>
-            <Text style={styles.diagnosisTitle}>Clinical Notes</Text>
-            <Text style={styles.diagnosisBody}>{data.note}</Text>
-            <Text style={styles.recommend}>Recommendation: {recommendation}</Text>
-          </View>
-
-          <View style={styles.footer}>
-            <View style={styles.footerMeta}>
-              <Text style={styles.footerMetaText}>Issue Date: {data.issued}</Text>
-              <Text style={styles.footerMetaText}>Medical Institution: {data.hospital}</Text>
+            <View style={styles.table}>
+              <InfoRow label="Patient Name" value={data.patient} />
+              <InfoRow label="Date of Birth" value={data.birth} />
+              <InfoRow label="Gender Identity" value={sexText} />
+              <InfoRow label="Address" value={wrappedAddress} multiline />
+              <InfoRow label="Japan Ikitai Score" value={scoreText} />
+              <InfoRow label="Certificate ID" value={data.serial} isLast />
             </View>
 
-            <View style={styles.signWrap}>
-              <SealStamp />
-              <Text style={styles.physician}>Attending Physician: {data.doctor}</Text>
+            <View style={styles.diagnosis}>
+              <Text style={styles.diagnosisTitle}>Clinical Notes</Text>
+              <Text style={styles.diagnosisBody}>{data.note}</Text>
+              <Text style={styles.recommend}>Recommendation: {recommendation}</Text>
+            </View>
+
+            <View style={styles.footer}>
+              <View style={styles.footerMeta}>
+                <Text style={styles.footerMetaText}>Issue Date: {data.issued}</Text>
+                <Text style={styles.footerMetaText}>Medical Institution: {data.hospital}</Text>
+              </View>
+
+              <View style={styles.signWrap}>
+                <SealStamp />
+                <Text style={styles.physician}>Attending Physician: {data.doctor}</Text>
+              </View>
             </View>
           </View>
         </View>
