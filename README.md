@@ -7,6 +7,7 @@ This is a parody medical-certificate web app built with Next.js + React + daisyU
 - Fill out patient details and notes in an input form
 - Live PDF-based certificate preview
 - Print-ready A4 certificate output from the browser
+- Optional multi-select redaction for Date of Birth, Gender Identity, and Address in PDF output
 - Build scripts included for Cloudflare Workers deployment
 
 ## Tech Stack

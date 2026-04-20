@@ -2,6 +2,7 @@
 
 import type { FormEvent } from "react";
 
+import { REDACTION_FIELD_LABELS } from "@/lib/certificate/domain/constants";
 import type { CertificateFormState } from "@/lib/certificate/domain/types";
 
 export function CertificateForm({
@@ -22,6 +23,17 @@ export function CertificateForm({
     value: CertificateFormState[K],
   ) => void;
 }) {
+  function handleRedactionToggle(
+    key: (typeof form.redactedFields)[number],
+    checked: boolean,
+  ) {
+    const nextRedactedFields = checked
+      ? [...new Set([...form.redactedFields, key])]
+      : form.redactedFields.filter((field) => field !== key);
+
+    onFieldChange("redactedFields", nextRedactedFields);
+  }
+
   return (
     <form
       onSubmit={onSubmit}
@@ -78,6 +90,40 @@ export function CertificateForm({
           onChange={(event) => onFieldChange("address", event.target.value)}
         />
       </label>
+
+      <fieldset className="form-control gap-2">
+        <legend className="label-text font-medium">Redacted PDF Options</legend>
+        <p className="text-sm text-base-content/70">
+          Select one or more fields to render as <span className="font-mono">[REDACTED]</span> in the PDF.
+        </p>
+        <label className="label flex w-full cursor-pointer justify-start gap-3 py-1">
+          <input
+            type="checkbox"
+            className="checkbox checkbox-sm"
+            checked={form.redactedFields.includes("birthDate")}
+            onChange={(event) => handleRedactionToggle("birthDate", event.target.checked)}
+          />
+          <span className="label-text">{REDACTION_FIELD_LABELS.birthDate}</span>
+        </label>
+        <label className="label flex w-full cursor-pointer justify-start gap-3 py-1">
+          <input
+            type="checkbox"
+            className="checkbox checkbox-sm"
+            checked={form.redactedFields.includes("sex")}
+            onChange={(event) => handleRedactionToggle("sex", event.target.checked)}
+          />
+          <span className="label-text">{REDACTION_FIELD_LABELS.sex}</span>
+        </label>
+        <label className="label flex w-full cursor-pointer justify-start gap-3 py-1">
+          <input
+            type="checkbox"
+            className="checkbox checkbox-sm"
+            checked={form.redactedFields.includes("address")}
+            onChange={(event) => handleRedactionToggle("address", event.target.checked)}
+          />
+          <span className="label-text">{REDACTION_FIELD_LABELS.address}</span>
+        </label>
+      </fieldset>
 
       <label className="form-control gap-2">
         <span className="label-text font-medium">Severity</span>

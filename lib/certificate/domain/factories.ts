@@ -12,6 +12,7 @@ export function buildCertificatePrintData(
     birth: form.birthDate || CERTIFICATE_DEFAULTS.birthDate,
     sex: form.sex,
     address: form.address || CERTIFICATE_DEFAULTS.address,
+    redactedFields: form.redactedFields,
     doctor: CERTIFICATE_DEFAULTS.doctor,
     hospital: CERTIFICATE_DEFAULTS.hospital,
     level: form.level,

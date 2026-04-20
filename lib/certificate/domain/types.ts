@@ -13,11 +13,14 @@ export type GenderIdentity =
 
 export type CertificateLevel = "mild" | "moderate" | "severe" | "critical";
 
+export type RedactableField = "birthDate" | "sex" | "address";
+
 export type CertificateFormState = {
   patientName: string;
   birthDate: string;
   sex: GenderIdentity;
   address: string;
+  redactedFields: RedactableField[];
   level: CertificateLevel;
   score: number;
   note: string;
@@ -28,6 +31,7 @@ export type CertificatePrintData = {
   birth: string;
   sex: GenderIdentity;
   address: string;
+  redactedFields: RedactableField[];
   doctor: string;
   hospital: string;
   level: CertificateLevel;

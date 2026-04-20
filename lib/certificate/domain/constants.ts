@@ -1,4 +1,9 @@
-import type { CertificateDefaults, CertificateLevel, GenderIdentity } from "@/lib/certificate/domain/types";
+import type {
+  CertificateDefaults,
+  CertificateLevel,
+  GenderIdentity,
+  RedactableField,
+} from "@/lib/certificate/domain/types";
 
 export const CERTIFICATE_DEFAULTS: CertificateDefaults = {
   patientName: "Choe Gu-sung",
@@ -12,6 +17,7 @@ export const CERTIFICATE_DEFAULTS: CertificateDefaults = {
     birthDate: "2070-10-29",
     sex: "male",
     address: "",
+    redactedFields: [],
     level: "severe",
     score: 86,
     note: "Immediate attempts to book flights to Japan were observed when spring fare promotions appeared.",
@@ -37,4 +43,10 @@ export const GENDER_LABELS: Record<GenderIdentity, string> = {
   questioning: "Questioning",
   prefer_not_to_say: "Prefer not to say",
   other: "Other",
+};
+
+export const REDACTION_FIELD_LABELS: Record<RedactableField, string> = {
+  birthDate: "Date of Birth",
+  sex: "Gender Identity",
+  address: "Address",
 };

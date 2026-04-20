@@ -23,6 +23,8 @@ import {
 } from "@/lib/certificate/domain/formatters";
 import type { CertificatePrintData } from "@/lib/certificate/domain/types";
 
+const REDACTED_TEXT = "[REDACTED]";
+
 Font.register({
   family: "NanumGothic",
   fonts: [
@@ -519,9 +521,13 @@ function CertificatePrintDocument({ data }: { data: CertificatePrintData }) {
   const levelText = CERTIFICATE_LEVEL_LABELS[data.level] ?? data.level.toUpperCase();
   const sexText = GENDER_LABELS[data.sex] ?? "Prefer not to say";
   const recommendation = getRecommendation(data.score);
-  const wrappedAddress = formatAddressForPdf(data.address);
+  const wrappedAddress = data.redactedFields.includes("address")
+    ? REDACTED_TEXT
+    : formatAddressForPdf(data.address);
   const wrappedNote = formatClinicalNotesForPdf(data.note);
   const verificationCode = buildVerificationCode(data.issuedUnix, data.serial);
+  const birthText = data.redactedFields.includes("birthDate") ? REDACTED_TEXT : data.birth;
+  const printableSexText = data.redactedFields.includes("sex") ? REDACTED_TEXT : sexText;
 
   return (
     <Document>
@@ -549,8 +555,8 @@ function CertificatePrintDocument({ data }: { data: CertificatePrintData }) {
 
               <View style={styles.table}>
                 <InfoRow label="Patient Name" value={data.patient} />
-                <InfoRow label="Date of Birth" value={data.birth} />
-                <InfoRow label="Gender Identity" value={sexText} />
+                <InfoRow label="Date of Birth" value={birthText} />
+                <InfoRow label="Gender Identity" value={printableSexText} />
                 <InfoRow label="Address" value={wrappedAddress} multiline />
                 <InfoRow label="Japan Ikitai Score" value={scoreText} />
                 <InfoRow label="Certificate ID" value={data.serial} isLast />
