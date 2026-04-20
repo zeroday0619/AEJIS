@@ -73,6 +73,16 @@ npm run deploy
 
 This project is a parody sample for humor and fun. It must not be used as a real diagnosis or medical document.
 
+## Font License
+
+This project bundles `NanumGothic-Regular.ttf` and `NanumGothic-Bold.ttf` under `public/fonts/`.
+
+- Font family: Nanum Gothic
+- Publisher: NAVER
+- License: SIL Open Font License 1.1
+- Full license text: [docs/licenses/OFL-1.1.txt](docs/licenses/OFL-1.1.txt)
+- Additional notice: see [docs/THIRD_PARTY_NOTICES.md](docs/THIRD_PARTY_NOTICES.md)
+
 ## License
 
 [Menhera Open Source License](LICENSE)
